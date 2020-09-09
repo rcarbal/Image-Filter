@@ -51,6 +51,7 @@ import { fileURLToPath } from 'url';
           //    4. deletes any files on the server on finish of the response
           deleteLocalFiles(list)
           console.log("Deleted Files")
+          console.log("Ready for production.")
         }
       })
 
