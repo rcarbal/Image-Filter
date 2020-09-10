@@ -1,6 +1,7 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import {filterImageFromURL, deleteLocalFiles} from './util/util';
+import { Request, Response } from 'express'
 import { fileURLToPath } from 'url';
 
 (async () => {
@@ -26,8 +27,9 @@ import { fileURLToPath } from 'url';
   **/
 
 
-  app.get('/filteredimage', async (req, res) =>{
-    let { image_url } = req.query;
+  app.get('/filteredimage', async (req:Request, res:Response) =>{
+
+    let image_url: string  = req.query.image_url;
 
     let list: string[] = [];
 
@@ -36,6 +38,8 @@ import { fileURLToPath } from 'url';
       return res.status(400).send('URL param is required.')
     }
     //    2. call filterImageFromURL(image_url) to filter the image
+    //    2.1 check if the remote url is valid
+
     let image = await filterImageFromURL(image_url);
     list.push(image)   
    
@@ -67,7 +71,7 @@ import { fileURLToPath } from 'url';
   
   // Root Endpoint
   // Displays a simple message to the user
-  app.get( "/", async ( req, res ) => {
+  app.get( "/", async ( req:Request, res:Response ) => {
     res.send("try GET /filteredimage?image_url={{}}")
   } );
   
